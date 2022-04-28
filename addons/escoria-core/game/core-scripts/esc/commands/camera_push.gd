@@ -49,7 +49,7 @@ func validate(arguments: Array):
 
 	if not escoria.object_manager.has(arguments[0]):
 		escoria.logger.report_errors(
-			"camera_push: invalid object",
+			"%s: invalid object" % get_command_name(),
 			[
 				"Object global id %s not found" % arguments[0]
 			]
@@ -57,7 +57,7 @@ func validate(arguments: Array):
 		return false
 	if not arguments[2] in SUPPORTED_TRANSITIONS:
 		escoria.logger.report_errors(
-			"camera_shift: invalid transition type",
+			"%s: invalid transition type" % get_command_name(),
 			[
 				"Transition type {t_type} is not one of the accepted types : {allowed_types}".format(
 					{"t_type":arguments[2],"allowed_types":SUPPORTED_TRANSITIONS})

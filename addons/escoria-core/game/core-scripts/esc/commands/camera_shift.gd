@@ -53,6 +53,7 @@ func run(command_params: Array) -> int:
 		)
 	return ESCExecution.RC_OK
 
+
 # Validate whether the given arguments match the command descriptor
 func validate(arguments: Array):
 	if not .validate(arguments):
@@ -60,10 +61,25 @@ func validate(arguments: Array):
 
 	if not arguments[3] in SUPPORTED_TRANSITIONS:
 		escoria.logger.report_errors(
-			"camera_shift: invalid transition type",
+			"%s: invalid transition type" % get_command_name(),
 			[
 				"Transition type {t_type} is not one of the accepted types : {allowed_types}".format(
 					{"t_type":arguments[3],"allowed_types":SUPPORTED_TRANSITIONS})
+			]
+		)
+		return false
+
+	var camera: ESCCamera = escoria.object_manager.get_object(escoria.object_manager.CAMERA).node as ESCCamera
+	var camera_limit: Rect2 = Rect2(camera.limit_left, camera.limit_top, camera.limit_right - camera.limit_left, camera.limit_bottom - camera.limit_top)
+	var shift_by: Vector2 = Vector2(arguments[0], arguments[1])
+	var new_pos: Vector2 = Vector2(camera.position.x + shift_by.x, camera.position.y + shift_by.y)
+
+	if not camera_limit.has_point(new_pos):
+		escoria.logger.report_errors(
+			"%s: invalid camera position" % get_command_name(),
+			[
+				"Camera cannot be moved by %s against current camera limit %s and current camera position %s." 
+					% [shift_by, camera_limit, camera.position]
 			]
 		)
 		return false
