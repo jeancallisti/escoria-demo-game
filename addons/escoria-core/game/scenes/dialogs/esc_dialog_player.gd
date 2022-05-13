@@ -123,21 +123,19 @@ func say(character: String, type: String, text: String) -> void:
 			"Unexpected text encountered %s" % text
 		)
 	var key = matches.get_string("key")
-	if matches.get_string("key") != "":
-		var _speech_resource = _get_voice_file(
-			matches.get_string("key")
-		)
+	if key != "":
+		var _speech_resource = _get_voice_file(key)
 		if _speech_resource != "":
 			(
 				escoria.object_manager.get_object(escoria.object_manager.SPEECH).node\
 				 as ESCSpeechPlayer
 			).set_state(_speech_resource)
-		text = tr(matches.get_string("key"))
+		text = tr(key)
 	else:
 		text = matches.get_string("text")
 
-	_dialog_manager.say(self, character, text, type)
 
+	_dialog_manager.say(self, character, text, type)
 
 # Handles the end of a say function after it has emitted say_finished.
 func _on_say_finished():
