@@ -42,6 +42,9 @@ func validate(arguments: Array):
 			]
 		)
 		return false
+
+	(escoria.object_manager.get_object(arguments[0]).node as ESCPlayer).validate_animations(load(arguments[1]))
+
 	return true
 
 
