@@ -1,0 +1,290 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://game/rooms/intro/escoria-logo-comet-anim.png" type="Texture" id=1]
+[ext_resource path="res://addons/escoria-core/game/core-scripts/esc_background.gd" type="Script" id=4]
+[ext_resource path="res://addons/escoria-core/game/core-scripts/esc_room.gd" type="Script" id=5]
+[ext_resource path="res://7cog/fonts/henry-goes-to-atlantis/henry_goes_to_atlantis.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://addons/escoria-core/game/core-scripts/esc_item.gd" type="Script" id=7]
+
+[sub_resource type="DynamicFont" id=10]
+size = 271
+outline_size = 3
+outline_color = Color( 1, 0, 0, 1 )
+font_data = ExtResource( 6 )
+
+[sub_resource type="AtlasTexture" id=1]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 340, 400 )
+
+[sub_resource type="AtlasTexture" id=2]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 340, 0, 340, 400 )
+
+[sub_resource type="AtlasTexture" id=3]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 680, 0, 340, 400 )
+
+[sub_resource type="AtlasTexture" id=4]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 1020, 0, 340, 400 )
+
+[sub_resource type="AtlasTexture" id=5]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 1360, 0, 340, 400 )
+
+[sub_resource type="AtlasTexture" id=6]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 1700, 0, 340, 400 )
+
+[sub_resource type="SpriteFrames" id=7]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
+"loop": true,
+"name": "default",
+"speed": 10.0
+} ]
+
+[sub_resource type="Animation" id=8]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("animated_asteroid:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ESCBackground:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Polygon2D:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath("ESCBackground/Polygon2D_Mypoly:position:x")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray(  ),
+"times": PoolRealArray(  )
+}
+tracks/4/type = "bezier"
+tracks/4/path = NodePath("ESCBackground/Polygon2D_Mypoly:position:y")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"points": PoolRealArray(  ),
+"times": PoolRealArray(  )
+}
+tracks/5/type = "bezier"
+tracks/5/path = NodePath("Polygon2D_BlackFadeIn:color:r")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"points": PoolRealArray(  ),
+"times": PoolRealArray(  )
+}
+tracks/6/type = "bezier"
+tracks/6/path = NodePath("Polygon2D_BlackFadeIn:color:g")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"points": PoolRealArray(  ),
+"times": PoolRealArray(  )
+}
+tracks/7/type = "bezier"
+tracks/7/path = NodePath("Polygon2D_BlackFadeIn:color:b")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"points": PoolRealArray(  ),
+"times": PoolRealArray(  )
+}
+tracks/8/type = "bezier"
+tracks/8/path = NodePath("Polygon2D_BlackFadeIn:color:a")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.2 )
+}
+
+[sub_resource type="Animation" id=9]
+length = 6.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("animated_asteroid:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 350, -20 ), Vector2( 630, 471 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("animated_asteroid:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("animated_asteroid:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.1, 0.1 ), Vector2( 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("animated_asteroid:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Polygon2D:color")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Polygon2D:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 3, 3.5, 5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Polygon2D:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[node name="ESCRoom" type="Node2D"]
+script = ExtResource( 5 )
+global_id = "intro_cutscene"
+esc_script = "res://7cog/rooms/00-misc/00-splash/esc/splash.esc"
+camera_limits = [ Rect2( 0, 0, 1920, 1080 ) ]
+
+[node name="ESCBackground" type="TextureRect" parent="."]
+margin_right = 1279.0
+margin_bottom = 900.0
+mouse_filter = 2
+expand = true
+stretch_mode = 1
+script = ExtResource( 4 )
+
+[node name="Polygon2D_Mypoly" type="Polygon2D" parent="ESCBackground"]
+polygon = PoolVector2Array( 163, 61, 61, 224, 143, 634, 53, 951, 599, 968, 1145, 708, 1468, 906, 1509, 425, 1192, 133, 660, 103, 348, 26, 216, 73 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ESCBackground"]
+margin_left = 481.0
+margin_top = 286.0
+margin_right = 1325.0
+margin_bottom = 719.0
+custom_fonts/normal_font = SubResource( 10 )
+text = "7cog
+"
+
+[node name="animated_asteroid" type="AnimatedSprite" parent="."]
+visible = false
+position = Vector2( 630, 471 )
+frames = SubResource( 7 )
+frame = 2
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 0, 6 )
+polygon = PoolVector2Array( 0, 0, 1280, 0, 1280, 900, 0, 900 )
+
+[node name="ESCItem" type="Area2D" parent="."]
+pause_mode = 1
+script = ExtResource( 7 )
+global_id = "intro_animation_player"
+dialog_color = Color( 1, 1, 1, 1 )
+animations = null
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ESCItem"]
+root_node = NodePath("../..")
+anims/RESET = SubResource( 8 )
+anims/intro = SubResource( 9 )
+
+[node name="Polygon2D_BlackFadeIn" type="Polygon2D" parent="."]
+color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( 58, 67, 38, 939, 1338, 933, 1364, 101 )
