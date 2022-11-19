@@ -1,0 +1,10 @@
+
+:ready
+
+play_snd res://game/sfx/contemplation.ogg _music
+
+> [!room1_visited]
+	set_global room_tibet_visited true
+
+	
+
