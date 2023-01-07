@@ -858,7 +858,7 @@ enabled=PoolStringArray( "res://addons/escoria-core/plugin.cfg", "res://addons/e
 [escoria]
 
 main/game_version="0.1.0"
-main/game_start_script="res://game/start_game.esc"
+main/game_start_script="res://game_320_200/start_game.esc"
 main/force_quit=true
 main/command_directories=[ "res://addons/escoria-core/game/core-scripts/esc/commands" ]
 main/text_lang="fr_FR"
