@@ -265,6 +265,7 @@ camera_limits = [ Rect2( 0, 0, 1920, 1080 ) ]
 [node name="ESCBackground" type="TextureRect" parent="."]
 margin_right = 1279.0
 margin_bottom = 900.0
+rect_scale = Vector2( 0.25, 0.25 )
 mouse_filter = 2
 texture = ExtResource( 6 )
 expand = true
@@ -272,31 +273,35 @@ stretch_mode = 1
 script = ExtResource( 4 )
 
 [node name="initial_background" type="Sprite" parent="."]
-position = Vector2( 640, 450 )
+scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 2 )
+centered = false
 
 [node name="animated_asteroid" type="AnimatedSprite" parent="."]
 visible = false
-position = Vector2( 630, 471 )
+scale = Vector2( 0.25, 0.25 )
 frames = SubResource( 7 )
 frame = 1
 playing = true
+centered = false
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 modulate = Color( 1, 1, 1, 0 )
-position = Vector2( 0, 6 )
-polygon = PoolVector2Array( 0, 0, 1280, 0, 1280, 900, 0, 900 )
+position = Vector2( 0, 2 )
+polygon = PoolVector2Array( 0, 0, 320, 0, 320, 200, 0, 200 )
 
 [node name="asteroid" type="Sprite" parent="."]
 visible = false
 modulate = Color( 1, 1, 1, 0 )
-position = Vector2( 620, 450 )
+scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 3 )
+centered = false
 
 [node name="ESCItem" type="Area2D" parent="."]
 pause_mode = 1
 script = ExtResource( 7 )
 global_id = "intro_animation_player"
+combine_when_selected_action_is_in = [  ]
 dialog_color = Color( 1, 1, 1, 1 )
 animations = null
 
