@@ -826,8 +826,7 @@ _global_script_class_icons={
 
 config/name="Escoria"
 run/main_scene="res://addons/escoria-core/game/main_scene.tscn"
-boot_splash/image="res://addons/escoria-core/design/escoria-logo-small.png"
-boot_splash/fullsize=false
+boot_splash/image="res://game_320_200/rooms/splash/7cog splash.png"
 boot_splash/use_filter=false
 boot_splash/bg_color=Color( 0.960784, 0.384314, 0, 1 )
 config/icon="res://icon.png"
@@ -842,10 +841,8 @@ escoria="*res://addons/escoria-core/game/esc_autoload.gd"
 
 [display]
 
-window/size/width=320
-window/size/height=200
-window/size/test_width=1280
-window/size/test_height=800
+window/size/width=640
+window/size/height=400
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 
