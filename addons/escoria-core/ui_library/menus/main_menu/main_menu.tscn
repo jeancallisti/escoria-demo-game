@@ -9,9 +9,6 @@
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="load_game" parent="." instance=ExtResource( 5 )]
 visible = false
@@ -44,18 +41,17 @@ __meta__ = {
 }
 
 [node name="TextureRect" type="TextureRect" parent="main/main"]
-margin_top = 162.0
 margin_right = 616.0
-margin_bottom = 398.0
+margin_bottom = 226.0
 texture = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="buttons" type="VBoxContainer" parent="main/main"]
-margin_top = 498.0
+margin_top = 326.0
 margin_right = 616.0
-margin_bottom = 738.0
+margin_bottom = 566.0
 custom_constants/separation = 10
 __meta__ = {
 "_edit_use_anchors_": false
