@@ -1,5 +1,24 @@
-
+# HÉ BATARD REGARDE LE MOT CLE "NO_UI" dans intro.esc c'est peut-être ce qu'on cherche!
 :ready
+
+camera_set_target_block 0 player 
+
+
+say player "Start"
+# Reminder : camera_set_pos positions outside of Escoria will be ignored
+#camera_set_pos 0 320 200 
+say player "Wait 2"
+
+wait 2
+#say player "Move down"
+
+# Reminder : camera_set_pos positions outside of Escoria will be ignored
+#camera_set_pos 2.0 320 300
+
+say player "Lock"
+
+# back to player
+camera_set_target_block 1 player 
 
 play_snd res://game/sfx/contemplation.ogg _music
 
