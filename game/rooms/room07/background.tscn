@@ -7,9 +7,6 @@ margin_right = 2092.0
 margin_bottom = 1970.0
 mouse_filter = 2
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="low_platform" type="Line2D" parent="."]
 position = Vector2( 2, 1139.32 )
