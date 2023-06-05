@@ -1,0 +1,57 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://addons/escoria-core/game/core-scripts/esc_room.gd" type="Script" id=1]
+[ext_resource path="res://7cog/rooms/00-misc/00-indy's desk/00.png" type="Texture" id=2]
+[ext_resource path="res://addons/escoria-core/game/core-scripts/esc_location.gd" type="Script" id=3]
+[ext_resource path="res://game/characters/mark/mark.tscn" type="PackedScene" id=4]
+[ext_resource path="res://addons/escoria-core/game/core-scripts/esc_terrain.gd" type="Script" id=5]
+[ext_resource path="res://addons/escoria-core/game/core-scripts/esc_background.gd" type="Script" id=6]
+[ext_resource path="res://7cog/rooms/00-misc/00-indy's desk/transp_2000_2000.png" type="Texture" id=7]
+
+[sub_resource type="NavigationPolygon" id=1]
+vertices = PoolVector2Array( 1687.84, -199.564, 1692.52, 1453.54, -180.254, 1468.43, -168.55, -202.542 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
+outlines = [ PoolVector2Array( -168.55, -202.542, -180.254, 1468.43, 1692.52, 1453.54, 1687.84, -199.564 ) ]
+
+[node name="ESCRoom" type="Node2D"]
+script = ExtResource( 1 )
+global_id = "room_mountaintop"
+esc_script = "res://7cog/rooms/01-tibet/mountaintop/esc/room_mountaintop.esc"
+player_scene = ExtResource( 4 )
+camera_limits = [ Rect2( 0, 0, 640, 500 ) ]
+
+[node name="ESCBackground" type="TextureRect" parent="."]
+mouse_filter = 2
+texture = ExtResource( 7 )
+script = ExtResource( 6 )
+
+[node name="ESCTerrain" type="Navigation2D" parent="."]
+script = ExtResource( 5 )
+scale_min = 0.15
+scale_max = 0.5
+player_speed_multiplier = 1.5
+player_doubleclick_speed_multiplier = 2.0
+
+[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="ESCTerrain"]
+scale = Vector2( 0.427174, 0.335732 )
+navpoly = SubResource( 1 )
+
+[node name="player start" type="Position2D" parent="."]
+position = Vector2( 331, 214 )
+script = ExtResource( 3 )
+global_id = "locationStart"
+is_start_location = true
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxBackground" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 1, 0.5 )
+motion_offset = Vector2( 0, -150 )
+
+[node name="ParallaxRoom" type="ParallaxLayer" parent="ParallaxBackground"]
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxRoom"]
+position = Vector2( -77, -70 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 2 )
+centered = false
