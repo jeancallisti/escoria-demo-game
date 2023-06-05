@@ -1,13 +1,15 @@
 {
   "ExpandedNodes": [
     "",
+    "\\.github",
+    "\\.github\\workflows",
     "\\7cog",
     "\\7cog\\rooms",
-    "\\7cog\\rooms\\01-tibet",
     "\\7cog\\rooms\\01-tibet\\mountaintop",
-    "\\7cog\\rooms\\01-tibet\\mountaintop\\snow_frames",
-    "\\game"
+    "\\game",
+    "\\game\\rooms",
+    "\\game\\rooms\\room07"
   ],
-  "SelectedNode": "\\game\\start_game.esc",
+  "SelectedNode": "\\game\\rooms\\room07\\elevator_door.png",
   "PreviewInSolutionExplorer": false
 }
