@@ -1,7 +1,6 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://addons/escoria-core/game/core-scripts/esc_terrain.gd" type="Script" id=1]
-[ext_resource path="res://addons/escoria-core/game/core-scripts/esc_background.gd" type="Script" id=2]
 [ext_resource path="res://game/fonts/caslonantique.tres" type="DynamicFont" id=3]
 [ext_resource path="res://game/characters/mark/mark.tscn" type="PackedScene" id=4]
 [ext_resource path="res://game/rooms/room09/button.png" type="Texture" id=5]
@@ -417,24 +416,21 @@ __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="ESCBackground" type="TextureRect" parent="."]
-margin_right = 1280.0
-margin_bottom = 550.0
-mouse_filter = 2
+[node name="Room9Background" type="Sprite" parent="."]
 texture = ExtResource( 9 )
-script = ExtResource( 2 )
+centered = false
 
-[node name="room_label" type="Label" parent="ESCBackground"]
+[node name="room_label" type="Label" parent="Room9Background"]
 margin_right = 82.0
 margin_bottom = 21.0
 custom_fonts/font = ExtResource( 3 )
 text = "ROOM 9"
 
-[node name="Label" type="Label" parent="ESCBackground"]
+[node name="Label" type="Label" parent="Room9Background"]
 margin_left = 841.0
 margin_top = 7.0
-margin_right = 909.0
-margin_bottom = 21.0
+margin_right = 1158.0
+margin_bottom = 225.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "This room demonstrates a puzzle that changes
 depending on what the player does. The bottle
@@ -467,6 +463,7 @@ esc_script = "res://game/rooms/room09/esc/stand.esc"
 interaction_direction = 2
 tooltip_name = "Stand"
 default_action = "look"
+combine_when_selected_action_is_in = [  ]
 inventory_texture = ExtResource( 10 )
 dialog_color = Color( 1, 1, 1, 1 )
 animations = null
@@ -494,6 +491,7 @@ script = ExtResource( 13 )
 global_id = "r9_l_exit"
 esc_script = "res://game/rooms/room09/esc/left_exit.esc"
 is_exit = true
+tooltip_name = "Left exit"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hotspots/door_l"]
 polygon = PoolVector2Array( 0, 108, 105, 62, 108, 355, 1, 422 )
@@ -507,6 +505,7 @@ script = ExtResource( 13 )
 global_id = "r9_r_exit"
 esc_script = "res://game/rooms/room09/esc/right_exit.esc"
 is_exit = true
+tooltip_name = "Right exit"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hotspots/door_r"]
 polygon = PoolVector2Array( 1174, 61, 1280, 107, 1280, 423, 1172, 353 )
@@ -533,6 +532,7 @@ global_id = "r9_reset_button"
 esc_script = "res://game/rooms/room09/esc/button_reset.esc"
 tooltip_name = "reset button"
 default_action = "use"
+combine_when_selected_action_is_in = [  ]
 inventory_texture = ExtResource( 5 )
 dialog_color = Color( 1, 1, 1, 1 )
 animations = null
@@ -565,6 +565,7 @@ global_id = "r9_closet_left"
 esc_script = "res://game/rooms/room09/esc/closet_left.esc"
 tooltip_name = "closet"
 default_action = "open"
+combine_when_selected_action_is_in = [  ]
 inventory_texture = ExtResource( 14 )
 dialog_color = Color( 1, 1, 1, 1 )
 animations = null
@@ -606,6 +607,7 @@ global_id = "r9_closet_middle"
 esc_script = "res://game/rooms/room09/esc/closet_middle.esc"
 tooltip_name = "closet"
 default_action = "open"
+combine_when_selected_action_is_in = [  ]
 inventory_texture = ExtResource( 14 )
 dialog_color = Color( 1, 1, 1, 1 )
 animations = null
@@ -648,6 +650,7 @@ global_id = "r9_closet_right"
 esc_script = "res://game/rooms/room09/esc/closet_right.esc"
 tooltip_name = "closet"
 default_action = "open"
+combine_when_selected_action_is_in = [  ]
 inventory_texture = ExtResource( 14 )
 dialog_color = Color( 1, 1, 1, 1 )
 animations = null

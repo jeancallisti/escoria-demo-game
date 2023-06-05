@@ -1,8 +1,4 @@
-extends State
-class_name DialogSay
-
-
-signal dialog_manager_set(dialog_manager)
+extends "res://addons/escoria-dialog-simple/patterns/state_machine/state.gd"
 
 
 # A regular expression that separates the translation key from the text
@@ -34,12 +30,13 @@ func _init() -> void:
 	_keytext_regex.compile(KEYTEXT_REGEX)
 
 
-func initialize(character: String, type: String, text: String) -> void:
+func initialize(dialog_manager: ESCDialogManager, character: String, text: String, type: String) -> void:
+	_dialog_manager = dialog_manager
 	_character = character
-	_type = type
 	_text = text
+	_type = type
 	_stop_talking_animation_on_option = \
-		ESCProjectSettingsManager.get_setting(SimpleDialogPlugin.STOP_TALKING_ANIMATION_ON)
+		ESCProjectSettingsManager.get_setting(SimpleDialogSettings.STOP_TALKING_ANIMATION_ON)
 
 
 func handle_input(_event):
@@ -48,20 +45,20 @@ func handle_input(_event):
 			escoria.inputs_manager.INPUT_NONE and \
 			_dialog_manager != null:
 
-			var left_click_action = ESCProjectSettingsManager.get_setting(SimpleDialogPlugin.LEFT_CLICK_ACTION)
+			var left_click_action = ESCProjectSettingsManager.get_setting(SimpleDialogSettings.LEFT_CLICK_ACTION)
 
 			_handle_left_click_action(left_click_action)
 
 
 func _handle_left_click_action(left_click_action: String) -> void:
 	match left_click_action:
-		SimpleDialogPlugin.LEFT_CLICK_ACTION_SPEED_UP:
+		SimpleDialogSettings.LEFT_CLICK_ACTION_SPEED_UP:
 			if _dialog_manager.is_connected("say_visible", self, "_on_say_visible"):
 				_dialog_manager.disconnect("say_visible", self, "_on_say_visible")
 
 			escoria.logger.trace(self, "Dialog State Machine: 'say' -> 'say_fast'")
 			emit_signal("finished", "say_fast")
-		SimpleDialogPlugin.LEFT_CLICK_ACTION_INSTANT_FINISH:
+		SimpleDialogSettings.LEFT_CLICK_ACTION_INSTANT_FINISH:
 			if _dialog_manager.is_connected("say_visible", self, "_on_say_visible"):
 				_dialog_manager.disconnect("say_visible", self, "_on_say_visible")
 
@@ -74,34 +71,8 @@ func _handle_left_click_action(left_click_action: String) -> void:
 func enter():
 	escoria.logger.trace(self, "Dialog State Machine: Entered 'say'.")
 
-	if _type == "":
-		_type = ESCProjectSettingsManager.get_setting(
-			ESCProjectSettingsManager.DEFAULT_DIALOG_TYPE
-		)
-
-	var dialog_manager: ESCDialogManager = null
-
-	for _manager_class in ESCProjectSettingsManager.get_setting(
-		ESCProjectSettingsManager.DIALOG_MANAGERS
-	):
-		if ResourceLoader.exists(_manager_class):
-			var _manager: ESCDialogManager = load(_manager_class).new()
-			if _manager.has_type(_type):
-				dialog_manager = _manager
-			else:
-				dialog_manager = null
-
-	if dialog_manager == null:
-		escoria.logger.error(
-			self,
-			"No dialog manager called '%s' configured." % _type
-		)
-
-	_dialog_manager = dialog_manager
-	emit_signal("dialog_manager_set", dialog_manager)
-
 	if not _dialog_manager.is_connected("say_visible", self, "_on_say_visible"):
-		_dialog_manager.connect("say_visible", self, "_on_say_visible", [], CONNECT_ONESHOT)
+		_dialog_manager.connect("say_visible", self, "_on_say_visible")
 
 	var matches = _keytext_regex.search(_text)
 
@@ -129,11 +100,16 @@ func enter():
 				 as ESCSpeechPlayer
 			).set_state(_speech_resource)
 
-			if _stop_talking_animation_on_option == SimpleDialogPlugin.STOP_TALKING_ANIMATION_ON_END_OF_AUDIO:
-				(
+			if _stop_talking_animation_on_option == SimpleDialogSettings.STOP_TALKING_ANIMATION_ON_END_OF_AUDIO:
+				if not (
 					escoria.object_manager.get_object(escoria.object_manager.SPEECH).node\
 					 as ESCSpeechPlayer
-				).stream.connect("finished", self, "_on_audio_finished", [], CONNECT_ONESHOT)
+				).stream.is_connected("finished", self, "_on_audio_finished"):
+
+					(
+						escoria.object_manager.get_object(escoria.object_manager.SPEECH).node\
+						 as ESCSpeechPlayer
+					).stream.connect("finished", self, "_on_audio_finished")
 
 		var translated_text: String = tr(matches.get_string("key"))
 
@@ -155,7 +131,7 @@ func enter():
 
 func update(_delta):
 	if _ready_to_say:
-		_dialog_manager.say(self, _character, _text, _type)
+		_dialog_manager.do_say(_character, _text)
 		_ready_to_say = false
 
 
