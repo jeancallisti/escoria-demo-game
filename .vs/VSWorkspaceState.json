@@ -1,7 +1,13 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\7cog",
+    "\\7cog\\rooms",
+    "\\7cog\\rooms\\01-tibet",
+    "\\7cog\\rooms\\01-tibet\\mountaintop",
+    "\\7cog\\rooms\\01-tibet\\mountaintop\\snow_frames",
+    "\\game"
   ],
-  "SelectedNode": "\\C:\\Users\\MathieuBergounioux\\source\\repos\\Escoria\\EscoriaDemoGame-2022-05-23\\escoria-demo-game",
+  "SelectedNode": "\\game\\start_game.esc",
   "PreviewInSolutionExplorer": false
 }
