@@ -1,5 +1,4 @@
-extends State
-class_name DialogInterrupt
+extends "res://addons/escoria-dialog-simple/patterns/state_machine/state.gd"
 
 
 # Reference to the currently playing dialog manager
@@ -15,7 +14,7 @@ func enter():
 
 	if _dialog_manager != null:
 		if not _dialog_manager.is_connected("say_finished", self, "_on_say_finished"):
-			_dialog_manager.connect("say_finished", self, "_on_say_finished", [], CONNECT_ONESHOT)
+			_dialog_manager.connect("say_finished", self, "_on_say_finished")
 
 		_dialog_manager.interrupt()
 

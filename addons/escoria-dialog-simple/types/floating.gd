@@ -46,7 +46,7 @@ onready var is_paused: bool = true
 # Enable bbcode and catch the signal when a tween completed
 func _ready():
 	_text_time_per_character = ProjectSettings.get_setting(
-		SimpleDialogPlugin.TEXT_TIME_PER_LETTER_MS
+		SimpleDialogSettings.TEXT_TIME_PER_LETTER_MS
 	)
 
 	if _text_time_per_character < 0:
@@ -54,15 +54,15 @@ func _ready():
 			self,
 			"%s setting must be a non-negative number. Will use default value of %s." %
 				[
-					SimpleDialogPlugin.TEXT_TIME_PER_LETTER_MS,
-					SimpleDialogPlugin.TEXT_TIME_PER_LETTER_MS_DEFAULT_VALUE
+					SimpleDialogSettings.TEXT_TIME_PER_LETTER_MS,
+					SimpleDialogSettings.TEXT_TIME_PER_LETTER_MS_DEFAULT_VALUE
 				]
 		)
 
-		_text_time_per_character = SimpleDialogPlugin.TEXT_TIME_PER_LETTER_MS_DEFAULT_VALUE
+		_text_time_per_character = SimpleDialogSettings.TEXT_TIME_PER_LETTER_MS_DEFAULT_VALUE
 
 	_fast_text_time_per_character = ProjectSettings.get_setting(
-		SimpleDialogPlugin.TEXT_TIME_PER_LETTER_MS_FAST
+		SimpleDialogSettings.TEXT_TIME_PER_LETTER_MS_FAST
 	)
 
 	if _fast_text_time_per_character < 0:
@@ -70,15 +70,15 @@ func _ready():
 			self,
 			"%s setting must be a non-negative number. Will use default value of %s." %
 				[
-					SimpleDialogPlugin.TEXT_TIME_PER_LETTER_MS_FAST,
-					SimpleDialogPlugin.TEXT_TIME_PER_LETTER_MS_FAST_DEFAULT_VALUE
+					SimpleDialogSettings.TEXT_TIME_PER_LETTER_MS_FAST,
+					SimpleDialogSettings.TEXT_TIME_PER_LETTER_MS_FAST_DEFAULT_VALUE
 				]
 		)
 
-		_fast_text_time_per_character = SimpleDialogPlugin.TEXT_TIME_PER_LETTER_MS_FAST_DEFAULT_VALUE
+		_fast_text_time_per_character = SimpleDialogSettings.TEXT_TIME_PER_LETTER_MS_FAST_DEFAULT_VALUE
 
 	_reading_speed_in_wpm = ProjectSettings.get_setting(
-		SimpleDialogPlugin.READING_SPEED_IN_WPM
+		SimpleDialogSettings.READING_SPEED_IN_WPM
 	)
 
 	if _reading_speed_in_wpm <= 0:
@@ -86,12 +86,12 @@ func _ready():
 			self,
 			"%s setting must be a positive number. Will use default value of %s." %
 				[
-					SimpleDialogPlugin.READING_SPEED_IN_WPM,
-					SimpleDialogPlugin.READING_SPEED_IN_WPM_DEFAULT_VALUE
+					SimpleDialogSettings.READING_SPEED_IN_WPM,
+					SimpleDialogSettings.READING_SPEED_IN_WPM_DEFAULT_VALUE
 				]
 		)
 
-		_reading_speed_in_wpm = SimpleDialogPlugin.READING_SPEED_IN_WPM_DEFAULT_VALUE
+		_reading_speed_in_wpm = SimpleDialogSettings.READING_SPEED_IN_WPM_DEFAULT_VALUE
 
 	_word_regex.compile("\\S+")
 
@@ -114,14 +114,9 @@ func _process(delta):
 			.get_global_transform_with_canvas().origin
 		rect_position.x -= rect_size.x / 2
 
-		if rect_position.x < 0:
-			rect_position.x = 0
+		_account_for_margin_x()
 
-		var screen_margin = rect_position.x + rect_size.x - \
-				ProjectSettings.get("display/window/size/width")
-
-		if screen_margin > 0:
-			rect_position.x -= screen_margin
+		_account_for_margin_y()
 
 
 # Make a character say something
@@ -156,14 +151,9 @@ func say(character: String, line: String) :
 		rect_position.x = 0
 		rect_size.x = ProjectSettings.get_setting("display/window/size/width")
 
-	if rect_position.x < 0:
-		rect_position.x = 0
+	_account_for_margin_x()
 
-	var screen_margin = rect_position.x + rect_size.x - \
-			ProjectSettings.get("display/window/size/width")
-
-	if screen_margin > 0:
-		rect_position.x -= screen_margin
+	_account_for_margin_y()
 
 	_current_character.start_talking()
 
@@ -227,7 +217,7 @@ func _get_number_of_words() -> int:
 # Ending the dialog
 func _on_dialog_finished():
 	# Only trigger to clear the text if we aren't limiting the clearing trigger to a click.
-	if not ESCProjectSettingsManager.get_setting(SimpleDialogPlugin.CLEAR_TEXT_BY_CLICK_ONLY):
+	if not ESCProjectSettingsManager.get_setting(SimpleDialogSettings.CLEAR_TEXT_BY_CLICK_ONLY):
 		emit_signal("say_finished")
 
 
@@ -254,3 +244,25 @@ func _stop_character_talking():
 	# Make the speaking item animation stop talking, if it is still alive
 	if is_instance_valid(_current_character) and _current_character != null:
 		_current_character.stop_talking()
+
+
+func _account_for_margin_x() -> void:
+	if rect_position.x < 0:
+		rect_position.x = 0
+
+	var screen_margin_x = rect_position.x + rect_size.x - \
+			ProjectSettings.get("display/window/size/width")
+
+	if screen_margin_x > 0:
+		rect_position.x -= screen_margin_x
+
+
+func _account_for_margin_y() -> void:
+	if rect_position.y < 0:
+		rect_position.y = 0
+
+	var screen_margin_y = rect_position.y + rect_size.y - \
+			ProjectSettings.get("display/window/size/height")
+
+	if screen_margin_y > 0:
+		rect_position.y -= screen_margin_y

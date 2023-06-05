@@ -1,5 +1,4 @@
-extends State
-class_name DialogChoices
+extends "res://addons/escoria-dialog-simple/patterns/state_machine/state.gd"
 
 
 # The owning dialog player.
@@ -14,8 +13,9 @@ var _dialog_chooser_ui: ESCDialogManager = null
 var _ready_to_choose: bool
 
 
-func initialize(dialog_player, dialog: ESCDialog, type: String) -> void:
+func initialize(dialog_player, dialog_chooser_ui: ESCDialogManager, dialog: ESCDialog, type: String) -> void:
 	_dialog_player = dialog_player
+	_dialog_chooser_ui = dialog_chooser_ui
 	_dialog = dialog
 	_type = type
 
@@ -29,27 +29,13 @@ func enter():
 			"Received dialog options array was empty."
 		)
 
-	for _manager_class in ESCProjectSettingsManager.get_setting(
-		ESCProjectSettingsManager.DIALOG_MANAGERS
-	):
-		if ResourceLoader.exists(_manager_class):
-			var _manager: ESCDialogManager = load(_manager_class).new()
-			if _manager.has_chooser_type(_type):
-				_dialog_chooser_ui = _manager
-
-	if _dialog_chooser_ui == null:
-		escoria.logger.error(
-			self,
-			"No dialog manager supports the chooser type %s." % _type
-		)
-
 	_ready_to_choose = true
 
 
 func update(_delta):
 	if _ready_to_choose:
 		_ready_to_choose = false
-		_dialog_chooser_ui.choose(self, _dialog)
+		_dialog_chooser_ui.do_choose(_dialog_player, _dialog, _type)
 		var option = yield(_dialog_chooser_ui, "option_chosen")
 
 		escoria.logger.trace(self, "Dialog State Machine: 'choices' -> 'idle'")

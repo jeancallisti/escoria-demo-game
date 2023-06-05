@@ -47,7 +47,7 @@ onready var is_paused: bool = true
 # Build up the UI
 func _ready():
 	_text_time_per_character = ProjectSettings.get_setting(
-		SimpleDialogPlugin.TEXT_TIME_PER_LETTER_MS
+		SimpleDialogSettings.TEXT_TIME_PER_LETTER_MS
 	)
 
 	if _text_time_per_character < 0:
@@ -55,15 +55,15 @@ func _ready():
 			self,
 			"%s setting must be a non-negative number. Will use default value of %s." %
 				[
-					SimpleDialogPlugin.TEXT_TIME_PER_LETTER_MS,
-					SimpleDialogPlugin.TEXT_TIME_PER_LETTER_MS_DEFAULT_VALUE
+					SimpleDialogSettings.TEXT_TIME_PER_LETTER_MS,
+					SimpleDialogSettings.TEXT_TIME_PER_LETTER_MS_DEFAULT_VALUE
 				]
 		)
 
-		_text_time_per_character = SimpleDialogPlugin.TEXT_TIME_PER_LETTER_MS_DEFAULT_VALUE
+		_text_time_per_character = SimpleDialogSettings.TEXT_TIME_PER_LETTER_MS_DEFAULT_VALUE
 
 	_fast_text_time_per_character = ProjectSettings.get_setting(
-		SimpleDialogPlugin.TEXT_TIME_PER_LETTER_MS_FAST
+		SimpleDialogSettings.TEXT_TIME_PER_LETTER_MS_FAST
 	)
 
 	if _fast_text_time_per_character < 0:
@@ -71,15 +71,15 @@ func _ready():
 			self,
 			"%s setting must be a non-negative number. Will use default value of %s." %
 				[
-					SimpleDialogPlugin.TEXT_TIME_PER_LETTER_MS_FAST,
-					SimpleDialogPlugin.TEXT_TIME_PER_LETTER_MS_FAST_DEFAULT_VALUE
+					SimpleDialogSettings.TEXT_TIME_PER_LETTER_MS_FAST,
+					SimpleDialogSettings.TEXT_TIME_PER_LETTER_MS_FAST_DEFAULT_VALUE
 				]
 		)
 
-		_fast_text_time_per_character = SimpleDialogPlugin.TEXT_TIME_PER_LETTER_MS_FAST_DEFAULT_VALUE
+		_fast_text_time_per_character = SimpleDialogSettings.TEXT_TIME_PER_LETTER_MS_FAST_DEFAULT_VALUE
 
 	_reading_speed_in_wpm = ProjectSettings.get_setting(
-		SimpleDialogPlugin.READING_SPEED_IN_WPM
+		SimpleDialogSettings.READING_SPEED_IN_WPM
 	)
 
 	if _reading_speed_in_wpm <= 0:
@@ -87,12 +87,12 @@ func _ready():
 			self,
 			"%s setting must be a positive number. Will use default value of %s." %
 				[
-					SimpleDialogPlugin.READING_SPEED_IN_WPM,
-					SimpleDialogPlugin.READING_SPEED_IN_WPM_DEFAULT_VALUE
+					SimpleDialogSettings.READING_SPEED_IN_WPM,
+					SimpleDialogSettings.READING_SPEED_IN_WPM_DEFAULT_VALUE
 				]
 		)
 
-		_reading_speed_in_wpm = SimpleDialogPlugin.READING_SPEED_IN_WPM_DEFAULT_VALUE
+		_reading_speed_in_wpm = SimpleDialogSettings.READING_SPEED_IN_WPM_DEFAULT_VALUE
 
 	_word_regex.compile("\\S+")
 
@@ -105,6 +105,8 @@ func _ready():
 
 	escoria.connect("paused", self, "_on_paused")
 	escoria.connect("resumed", self, "_on_resumed")
+
+	connect("tree_exited", self, "_on_tree_exited")
 
 
 # Switch the current character
@@ -191,8 +193,11 @@ func _on_dialog_line_typed(object, key):
 	text_node.visible_characters = -1
 
 	var time_to_disappear: float = _calculate_time_to_disappear()
+
+	if not $Timer.is_connected("timeout", self, "_on_dialog_finished"):
+		$Timer.connect("timeout", self, "_on_dialog_finished")
+
 	$Timer.start(time_to_disappear)
-	$Timer.connect("timeout", self, "_on_dialog_finished")
 
 	emit_signal("say_visible")
 
@@ -207,10 +212,11 @@ func _get_number_of_words() -> int:
 
 # Ending the dialog
 func _on_dialog_finished():
+	$Timer.stop()
+
 	# Only trigger to clear the text if we aren't limiting the clearing trigger to a click.
-	if not ESCProjectSettingsManager.get_setting(SimpleDialogPlugin.CLEAR_TEXT_BY_CLICK_ONLY):
+	if not ESCProjectSettingsManager.get_setting(SimpleDialogSettings.CLEAR_TEXT_BY_CLICK_ONLY):
 		emit_signal("say_finished")
-		queue_free()
 
 
 # Handler managing pause notification from Escoria
@@ -223,7 +229,14 @@ func _on_paused():
 # Handler managing resume notification from Escoria
 func _on_resumed():
 	if not tween.is_active():
+		# We can't rely on "show()" to make an invisible popup reappear, as per the docs for
+		# CanvasItem. Instead, we need to use one of the popup_* methods.
+		if is_inside_tree():
+			popup_centered()
+
 		is_paused = false
 		tween.resume_all()
 
 
+func _on_tree_exited():
+	queue_free()

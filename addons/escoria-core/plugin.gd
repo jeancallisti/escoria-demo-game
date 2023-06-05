@@ -302,6 +302,14 @@ func set_escoria_debug_settings():
 		}
 	)
 
+	register_setting(
+		ESCProjectSettingsManager.ENABLE_HOVER_STACK_VIEWER,
+		false,
+		{
+			"type": TYPE_BOOL
+		}
+	)
+
 
 # Prepare the settings in the Escoria sound settings
 func set_escoria_sound_settings():

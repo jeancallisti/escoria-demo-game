@@ -1,5 +1,4 @@
-extends State
-class_name DialogSayFinish
+extends "res://addons/escoria-dialog-simple/patterns/state_machine/state.gd"
 
 
 # Reference to the currently playing dialog manager
@@ -18,7 +17,7 @@ func enter():
 		_dialog_manager != null:
 
 		if not _dialog_manager.is_connected("say_visible", self, "_on_say_visible"):
-			_dialog_manager.connect("say_visible", self, "_on_say_visible", [], CONNECT_ONESHOT)
+			_dialog_manager.connect("say_visible", self, "_on_say_visible")
 
 		_dialog_manager.finish()
 	else:
