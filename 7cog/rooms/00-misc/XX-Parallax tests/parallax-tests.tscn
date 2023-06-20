@@ -1,0 +1,285 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://addons/escoria-core/game/core-scripts/esc_room.gd" type="Script" id=1]
+[ext_resource path="res://7cog/rooms/01-tibet/mountaintop/pixel grid.png" type="Texture" id=2]
+[ext_resource path="res://7cog/rooms/00-misc/XX-Parallax tests/200x200.png" type="Texture" id=3]
+[ext_resource path="res://7cog/rooms/00-misc/XX-Parallax tests/ExtendedParallaxBackground.gd" type="Script" id=4]
+[ext_resource path="res://addons/escoria-core/game/core-scripts/esc_location.gd" type="Script" id=6]
+[ext_resource path="res://addons/escoria-core/game/core-scripts/esc_terrain.gd" type="Script" id=7]
+[ext_resource path="res://game/characters/mark/mark.tscn" type="PackedScene" id=8]
+
+[sub_resource type="NavigationPolygon" id=1]
+vertices = PoolVector2Array( 1100, 17, 1047, 987, 12, 1010, 5, 7 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
+outlines = [ PoolVector2Array( 5, 7, 12, 1010, 1047, 987, 1100, 17 ) ]
+
+[node name="ESCRoom" type="Node2D"]
+script = ExtResource( 1 )
+global_id = "parallaxtests"
+esc_script = "res://7cog/rooms/00-misc/XX-Parallax tests/esc/parallaxtest.esc"
+player_scene = ExtResource( 8 )
+camera_limits = [ Rect2( 0, 0, 5000, 5000 ) ]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+scroll_base_offset = Vector2( 400, 600 )
+script = ExtResource( 4 )
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0, 0 )
+motion_offset = Vector2( -400, -600 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="PixelGrid" type="Sprite" parent="ParallaxBackground/ParallaxLayer2"]
+visible = false
+texture = ExtResource( 2 )
+
+[node name="Node2D5" type="Node2D" parent="ParallaxBackground/ParallaxLayer2"]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Node2D" type="Node2D" parent="ParallaxBackground/ParallaxLayer2/Node2D5"]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ColorRect" type="ColorRect" parent="ParallaxBackground/ParallaxLayer2/Node2D5/Node2D"]
+margin_right = 400.0
+margin_bottom = 400.0
+mouse_filter = 2
+color = Color( 0, 0.905882, 1, 1 )
+
+[node name="ColorRect2" type="ColorRect" parent="ParallaxBackground/ParallaxLayer2/Node2D5/Node2D"]
+margin_left = 50.0
+margin_top = 50.0
+margin_right = 350.0
+margin_bottom = 350.0
+mouse_filter = 2
+
+[node name="ColorRect3" type="ColorRect" parent="ParallaxBackground/ParallaxLayer2/Node2D5/Node2D"]
+margin_left = 100.0
+margin_top = 100.0
+margin_right = 300.0
+margin_bottom = 300.0
+mouse_filter = 2
+color = Color( 0, 0.976471, 1, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="ParallaxBackground/ParallaxLayer2/Node2D5/Node2D"]
+margin_left = 150.0
+margin_top = 150.0
+margin_right = 250.0
+margin_bottom = 250.0
+mouse_filter = 2
+
+[node name="ColorRect5" type="ColorRect" parent="ParallaxBackground/ParallaxLayer2/Node2D5/Node2D"]
+margin_left = 200.0
+margin_top = 200.0
+margin_right = 204.0
+margin_bottom = 204.0
+mouse_filter = 2
+color = Color( 0, 0.976471, 1, 1 )
+
+[node name="Node2D4" type="Node2D" parent="ParallaxBackground/ParallaxLayer2/Node2D5"]
+position = Vector2( 404, 0 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ColorRect" type="ColorRect" parent="ParallaxBackground/ParallaxLayer2/Node2D5/Node2D4"]
+margin_right = 400.0
+margin_bottom = 400.0
+mouse_filter = 2
+color = Color( 0, 0.905882, 1, 1 )
+
+[node name="ColorRect2" type="ColorRect" parent="ParallaxBackground/ParallaxLayer2/Node2D5/Node2D4"]
+margin_left = 50.0
+margin_top = 50.0
+margin_right = 350.0
+margin_bottom = 350.0
+mouse_filter = 2
+
+[node name="ColorRect3" type="ColorRect" parent="ParallaxBackground/ParallaxLayer2/Node2D5/Node2D4"]
+margin_left = 100.0
+margin_top = 100.0
+margin_right = 300.0
+margin_bottom = 300.0
+mouse_filter = 2
+color = Color( 0, 0.976471, 1, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="ParallaxBackground/ParallaxLayer2/Node2D5/Node2D4"]
+margin_left = 150.0
+margin_top = 150.0
+margin_right = 250.0
+margin_bottom = 250.0
+mouse_filter = 2
+
+[node name="ColorRect5" type="ColorRect" parent="ParallaxBackground/ParallaxLayer2/Node2D5/Node2D4"]
+margin_left = 200.0
+margin_top = 200.0
+margin_right = 204.0
+margin_bottom = 204.0
+mouse_filter = 2
+color = Color( 0, 0.976471, 1, 1 )
+
+[node name="Node2D2" type="Node2D" parent="ParallaxBackground/ParallaxLayer2/Node2D5"]
+position = Vector2( 0, 403 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ColorRect" type="ColorRect" parent="ParallaxBackground/ParallaxLayer2/Node2D5/Node2D2"]
+margin_right = 400.0
+margin_bottom = 400.0
+mouse_filter = 2
+color = Color( 0, 0.905882, 1, 1 )
+
+[node name="ColorRect2" type="ColorRect" parent="ParallaxBackground/ParallaxLayer2/Node2D5/Node2D2"]
+margin_left = 50.0
+margin_top = 50.0
+margin_right = 350.0
+margin_bottom = 350.0
+mouse_filter = 2
+
+[node name="ColorRect3" type="ColorRect" parent="ParallaxBackground/ParallaxLayer2/Node2D5/Node2D2"]
+margin_left = 100.0
+margin_top = 100.0
+margin_right = 300.0
+margin_bottom = 300.0
+mouse_filter = 2
+color = Color( 0, 0.976471, 1, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="ParallaxBackground/ParallaxLayer2/Node2D5/Node2D2"]
+margin_left = 150.0
+margin_top = 150.0
+margin_right = 250.0
+margin_bottom = 250.0
+mouse_filter = 2
+
+[node name="ColorRect5" type="ColorRect" parent="ParallaxBackground/ParallaxLayer2/Node2D5/Node2D2"]
+margin_left = 200.0
+margin_top = 200.0
+margin_right = 204.0
+margin_bottom = 204.0
+mouse_filter = 2
+color = Color( 0, 0.976471, 1, 1 )
+
+[node name="Node2D3" type="Node2D" parent="ParallaxBackground/ParallaxLayer2/Node2D5"]
+position = Vector2( 404, 403 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ColorRect" type="ColorRect" parent="ParallaxBackground/ParallaxLayer2/Node2D5/Node2D3"]
+margin_right = 400.0
+margin_bottom = 400.0
+mouse_filter = 2
+color = Color( 0, 0.905882, 1, 1 )
+
+[node name="ColorRect2" type="ColorRect" parent="ParallaxBackground/ParallaxLayer2/Node2D5/Node2D3"]
+margin_left = 50.0
+margin_top = 50.0
+margin_right = 350.0
+margin_bottom = 350.0
+mouse_filter = 2
+
+[node name="ColorRect3" type="ColorRect" parent="ParallaxBackground/ParallaxLayer2/Node2D5/Node2D3"]
+margin_left = 100.0
+margin_top = 100.0
+margin_right = 300.0
+margin_bottom = 300.0
+mouse_filter = 2
+color = Color( 0, 0.976471, 1, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="ParallaxBackground/ParallaxLayer2/Node2D5/Node2D3"]
+margin_left = 150.0
+margin_top = 150.0
+margin_right = 250.0
+margin_bottom = 250.0
+mouse_filter = 2
+
+[node name="ColorRect5" type="ColorRect" parent="ParallaxBackground/ParallaxLayer2/Node2D5/Node2D3"]
+margin_left = 200.0
+margin_top = 200.0
+margin_right = 204.0
+margin_bottom = 204.0
+mouse_filter = 2
+color = Color( 0, 0.976471, 1, 1 )
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.5, 0.5 )
+motion_offset = Vector2( -400, -600 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="200X200" type="Sprite" parent="ParallaxBackground/ParallaxLayer3"]
+scale = Vector2( 2, 2 )
+z_index = 1000
+texture = ExtResource( 3 )
+centered = false
+offset = Vector2( 100, 200 )
+
+[node name="ColorRect" type="ColorRect" parent="ParallaxBackground/ParallaxLayer3"]
+visible = false
+margin_left = 256.0
+margin_top = 488.0
+margin_right = 556.0
+margin_bottom = 788.0
+mouse_filter = 2
+color = Color( 0.454902, 1, 0, 1 )
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_offset = Vector2( -400, -600 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="200X200" type="Sprite" parent="ParallaxBackground/ParallaxLayer4"]
+visible = false
+scale = Vector2( 2, 2 )
+z_index = 1000
+texture = ExtResource( 3 )
+
+[node name="ColorRect" type="ColorRect" parent="ParallaxBackground/ParallaxLayer4"]
+margin_right = 200.0
+margin_bottom = 200.0
+mouse_filter = 2
+color = Color( 1, 0.513726, 0, 1 )
+
+[node name="ParallaxBackground2" type="ParallaxBackground" parent="."]
+layer = 100
+scroll_base_offset = Vector2( 400, 600 )
+script = ExtResource( 4 )
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground2"]
+position = Vector2( 400, 400 )
+motion_scale = Vector2( 2, 2 )
+motion_offset = Vector2( -400, -600 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="200X200" type="Sprite" parent="ParallaxBackground2/ParallaxLayer"]
+z_index = 1000
+texture = ExtResource( 3 )
+
+[node name="ColorRect" type="ColorRect" parent="ParallaxBackground2/ParallaxLayer"]
+visible = false
+margin_right = 100.0
+margin_bottom = 100.0
+mouse_filter = 2
+color = Color( 1, 0.890196, 0, 1 )
+
+[node name="ESCLocation START" type="Position2D" parent="."]
+position = Vector2( 400, 600 )
+script = ExtResource( 6 )
+global_id = "player_start2"
+is_start_location = true
+
+[node name="ESCTerrain" type="Navigation2D" parent="."]
+script = ExtResource( 7 )
+
+[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="ESCTerrain"]
+navpoly = SubResource( 1 )

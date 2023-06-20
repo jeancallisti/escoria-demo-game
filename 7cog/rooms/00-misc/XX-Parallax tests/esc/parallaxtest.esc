@@ -1,0 +1,4 @@
+
+:ready
+	camera_set_target_block 0 player 
+    say player "Ready!!""
