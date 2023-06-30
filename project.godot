@@ -802,6 +802,8 @@ escoria="*res://addons/escoria-core/game/esc_autoload.gd"
 window/size/width=640
 window/size/height=400
 window/size/always_on_top=true
+window/size/test_width=800
+window/size/test_height=600
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 
