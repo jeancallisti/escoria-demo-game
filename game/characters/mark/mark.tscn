@@ -502,11 +502,11 @@ pause_mode = 1
 script = ExtResource( 1 )
 global_id = "player"
 esc_script = "res://game/characters/mark/mark.esc"
+is_interactive = false
 is_movable = true
-tooltip_name = "Me"
 default_action = "look"
 combine_when_selected_action_is_in = [  ]
-dialog_color = Color( 1, 1, 1, 1 )
+dialog_color = Color( 1, 0, 0, 1 )
 animations = ExtResource( 8 )
 
 [node name="sprite" type="AnimatedSprite" parent="."]
