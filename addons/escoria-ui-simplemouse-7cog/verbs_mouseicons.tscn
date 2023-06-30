@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://addons/escoria-ui-simplemouse-7cog/verbs_mouseicons.gd" type="Script" id=1]
 [ext_resource path="res://addons/escoria-ui-simplemouse-7cog/cursors/cursor_examine.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://addons/escoria-ui-simplemouse-7cog/cursors/cursor_dialog.png" type="Texture" id=4]
 [ext_resource path="res://addons/escoria-ui-simplemouse-7cog/cursors/cursor_foot.png" type="Texture" id=5]
 [ext_resource path="res://addons/escoria-ui-simplemouse-7cog/cursors/cursor_hand.png" type="Texture" id=6]
+[ext_resource path="res://addons/escoria-ui-simplemouse-7cog/cursors/cursor_wait.png" type="Texture" id=7]
 
 [node name="verbs_menu" type="Control"]
 anchor_right = 1.0
@@ -70,6 +71,15 @@ size_flags_horizontal = 6
 size_flags_vertical = 6
 texture = ExtResource( 4 )
 
+[node name="menu" type="TextureRect" parent="actions"]
+margin_left = 1121.0
+margin_top = 418.0
+margin_right = 1185.0
+margin_bottom = 482.0
+size_flags_horizontal = 6
+size_flags_vertical = 6
+texture = ExtResource( 7 )
+
 [node name="mouse_position" type="Control" parent="."]
 margin_left = 546.519
 margin_top = 524.76
@@ -86,6 +96,3 @@ margin_top = 45.6984
 margin_right = 86.4475
 margin_bottom = 85.6984
 mouse_filter = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}

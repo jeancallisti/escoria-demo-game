@@ -1,4 +1,4 @@
-# Plugin script to initialize Escoria Simple Mouse 7cog UI
+# Plugin script to initialize Escoria Simple Mouse 7COG UI
 tool
 extends EditorPlugin
 
@@ -10,13 +10,13 @@ func get_plugin_name():
 
 # Deregister UI
 func disable_plugin():
-	print("Disabling plugin Escoria UI Simple Mouse 7cog.")
+	print("Disabling plugin Escoria UI Simple Mouse 7COG.")
 	EscoriaPlugin.deregister_ui("res://addons/escoria-ui-simplemouse-7cog/game.tscn")
 
 
 # Register UI with Escoria
 func enable_plugin():
-	print("Enabling plugin Escoria UI Simple Mouse 7cog.")
+	print("Enabling plugin Escoria UI Simple Mouse 7COG.")
 	if not EscoriaPlugin.register_ui(self, "res://addons/escoria-ui-simplemouse-7cog/game.tscn"):
 		get_editor_interface().set_plugin_enabled(
 			get_plugin_name(),

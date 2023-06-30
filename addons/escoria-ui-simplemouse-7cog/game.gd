@@ -3,7 +3,7 @@ extends ESCGame
 
 const VERB_USE = "use"
 const VERB_WALK = "walk"
-
+const VERB_MENU = "menu"
 
 """
 Implement methods to react to inputs.
@@ -76,17 +76,17 @@ func _ready():
 
 
 func _enter_tree():
-	var room_selector_parent = $CanvasLayer/ui/HBoxContainer/VBoxContainer
+	var room_selector_parent = $CanvasLayer/ui
 
-	if ESCProjectSettingsManager.get_setting(ESCProjectSettingsManager.ENABLE_ROOM_SELECTOR) \
-		and room_selector_parent.get_node_or_null("room_select") == null:
-
-		room_selector_parent.add_child(
-			preload(
-				"res://addons/escoria-core/ui_library/tools/room_select" +\
-				"/room_select.tscn"
-			).instance()
-		)
+#	if ESCProjectSettingsManager.get_setting(ESCProjectSettingsManager.ENABLE_ROOM_SELECTOR) \
+#		and room_selector_parent.get_node_or_null("room_select") == null:
+#
+#		room_selector_parent.add_child(
+#			preload(
+#				"res://addons/escoria-core/ui_library/tools/room_select" +\
+#				"/room_select.tscn"
+#			).instance()
+#		)
 
 	var input_handler = funcref(self, "_process_input")
 	escoria.inputs_manager.register_custom_input_handler(input_handler)
@@ -244,6 +244,9 @@ func left_click_on_item(item_global_id: String, event: InputEvent) -> void:
 		[item_global_id, event],
 		true
 	)
+
+	$mouse_layer/verbs_menu.clear_tool_texture()
+
 func right_click_on_item(item_global_id: String, event: InputEvent) -> void:
 	mousewheel_action(1)
 
@@ -296,11 +299,11 @@ func inventory_item_unfocused() -> void:
 
 
 func open_inventory():
-	$CanvasLayer/ui/HBoxContainer/inventory_ui.show_inventory()
+	$CanvasLayer/ui/BottomRightPanel/inventory_ui.show_inventory()
 
 
 func close_inventory():
-	$CanvasLayer/ui/HBoxContainer/inventory_ui.hide_inventory()
+	$CanvasLayer/ui/BottomRightPanel/inventory_ui.hide_inventory()
 
 
 func mousewheel_action(direction: int):
@@ -308,24 +311,30 @@ func mousewheel_action(direction: int):
 
 
 func hide_ui():
-	$CanvasLayer/ui/HBoxContainer/inventory_ui.hide()
-	$CanvasLayer/ui.hide()
+	$CanvasLayer/ui/BottomRightPanel/inventory_ui.hide()
+	$CanvasLayer/ui/BottomRightPanel.hide()
 
 
 func show_ui():
-	$CanvasLayer/ui/HBoxContainer/inventory_ui.show()
-	$CanvasLayer/ui.show()
+	$CanvasLayer/ui/BottomRightPanel/inventory_ui.show()
+	$CanvasLayer/ui/BottomRightPanel.show()
 
 
 func hide_main_menu():
 	if get_node(main_menu).visible:
 		get_node(main_menu).hide()
+		$mouse_layer/verbs_menu.exit_menu()
 
+# this is called when opening the main menu before starting a game (game startup screen)
+# See also : pause_game
 func show_main_menu():
 	if not get_node(main_menu).visible:
 		get_node(main_menu).reset()
 		get_node(main_menu).show()
+		$mouse_layer/verbs_menu.enter_menu()
 
+# this is called when closing the main menu from within an ongoing game
+# See also : pause_game
 func unpause_game():
 	if get_node(pause_menu).visible:
 		get_node(pause_menu).hide()
@@ -333,7 +342,11 @@ func unpause_game():
 		escoria.object_manager.get_object(ESCObjectManager.SPEECH).node.resume()
 		escoria.main.current_scene.game.show_ui()
 		escoria.main.current_scene.show()
-
+		$mouse_layer/verbs_menu.exit_menu()
+		
+		
+# this is called when opening the main menu from within an ongoing game
+# See also : show_main_menu
 func pause_game():
 	if not get_node(pause_menu).visible:
 		get_node(main_menu).reset()
@@ -346,6 +359,7 @@ func pause_game():
 		escoria.object_manager.get_object(ESCObjectManager.SPEECH).node.pause()
 		escoria.main.current_scene.game.hide_ui()
 		escoria.main.current_scene.hide()
+		$mouse_layer/verbs_menu.enter_menu()
 
 
 func apply_custom_settings(custom_settings: Dictionary):
@@ -398,9 +412,9 @@ func _on_action_finished():
 func _on_event_done(_return_code: int, _event_name: String):
 	if _return_code == ESCExecution.RC_OK:
 		escoria.action_manager.clear_current_action()
-		$mouse_layer/verbs_menu.clear_tool_texture()
 		$tooltip_layer/tooltip.set_target("")
 
 
 func _on_MenuButton_pressed() -> void:
 	pause_game()
+

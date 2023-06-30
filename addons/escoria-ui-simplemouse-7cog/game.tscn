@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://addons/escoria-ui-simplemouse-7cog/inventory/inventory_ui.tscn" type="PackedScene" id=1]
 [ext_resource path="res://addons/escoria-core/game/scenes/dialogs/esc_dialog_player.gd" type="Script" id=2]
@@ -9,11 +9,14 @@
 [ext_resource path="res://addons/escoria-core/ui_library/menus/main_menu/main_menu.tscn" type="PackedScene" id=7]
 [ext_resource path="res://addons/escoria-core/ui_library/menus/pause_menu/pause_menu.tscn" type="PackedScene" id=8]
 [ext_resource path="res://addons/escoria-ui-simplemouse-7cog/theme.tres" type="Theme" id=9]
+[ext_resource path="res://addons/escoria-ui-simplemouse-7cog/images/cog00_off.png" type="Texture" id=10]
+[ext_resource path="res://addons/escoria-ui-simplemouse-7cog/images/cog00_on.png" type="Texture" id=11]
+[ext_resource path="res://addons/escoria-ui-simplemouse-7cog/images/cog00_hover.png" type="Texture" id=12]
 
 [node name="game" type="Node2D"]
 script = ExtResource( 5 )
-main_menu = NodePath("CanvasLayer/main_menu")
-pause_menu = NodePath("CanvasLayer/pause_menu")
+main_menu = NodePath("CanvasLayer/CanvasLayer2/main_menu")
+pause_menu = NodePath("CanvasLayer/CanvasLayer2/pause_menu")
 editor_debug_mode = 1
 ui_parent_control_node = NodePath("CanvasLayer/ui")
 
@@ -35,50 +38,60 @@ __meta__ = {
 anchor_top = 0.9
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource( 9 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/ui"]
+[node name="BottomRightPanel" type="Control" parent="CanvasLayer/ui"]
+anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
+margin_left = -150.0
+margin_top = -150.0
+
+[node name="inventory_ui" parent="CanvasLayer/ui/BottomRightPanel" instance=ExtResource( 1 )]
+anchor_left = 1.0
+anchor_top = 1.0
+margin_left = -90.0
+margin_top = -90.0
 __meta__ = {
-"_edit_use_anchors_": false
+"_edit_use_anchors_": true
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/ui/HBoxContainer"]
-margin_right = 58.0
-margin_bottom = 90.0
-
-[node name="MenuButton" type="Button" parent="CanvasLayer/ui/HBoxContainer/VBoxContainer"]
-margin_right = 58.0
-margin_bottom = 27.0
+[node name="MenuButton" type="Button" parent="CanvasLayer/ui/BottomRightPanel"]
+visible = false
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -58.0
+margin_top = -50.0
 text = "Menu"
 
-[node name="Spacer" type="Control" parent="CanvasLayer/ui/HBoxContainer"]
-margin_left = 62.0
-margin_right = 1186.0
-margin_bottom = 90.0
-size_flags_horizontal = 3
+[node name="TextureButton" type="TextureButton" parent="CanvasLayer/ui/BottomRightPanel"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -67.0
+margin_top = -136.0
+margin_right = -17.0
+margin_bottom = -86.0
+texture_normal = ExtResource( 10 )
+texture_pressed = ExtResource( 11 )
+texture_hover = ExtResource( 12 )
+expand = true
 
-[node name="inventory_ui" parent="CanvasLayer/ui/HBoxContainer" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 1190.0
-margin_right = 1280.0
-margin_bottom = 90.0
-rect_scale = Vector2( 1, 1 )
+[node name="CanvasLayer2" type="CanvasLayer" parent="CanvasLayer"]
+layer = 3
 
-[node name="pause_menu" parent="CanvasLayer" instance=ExtResource( 8 )]
+[node name="pause_menu" parent="CanvasLayer/CanvasLayer2" instance=ExtResource( 8 )]
 visible = false
 theme = ExtResource( 9 )
 
-[node name="main_menu" parent="CanvasLayer" instance=ExtResource( 7 )]
+[node name="main_menu" parent="CanvasLayer/CanvasLayer2" instance=ExtResource( 7 )]
 visible = false
 
 [node name="tooltip_layer" type="CanvasLayer" parent="."]
@@ -89,9 +102,10 @@ mouse_filter = 2
 theme = ExtResource( 9 )
 bbcode_text = "[center][color=#000000][/color][/center]"
 fit_content_height = true
+color = Color( 1, 0, 0, 1 )
 
 [node name="mouse_layer" type="CanvasLayer" parent="."]
-layer = 2
+layer = 128
 
 [node name="verbs_menu" parent="mouse_layer" instance=ExtResource( 4 )]
 anchor_right = 0.0
@@ -105,4 +119,5 @@ size_flags_horizontal = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 3.0
 
-[connection signal="pressed" from="CanvasLayer/ui/HBoxContainer/VBoxContainer/MenuButton" to="." method="_on_MenuButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/ui/BottomRightPanel/MenuButton" to="." method="_on_MenuButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/ui/BottomRightPanel/TextureButton" to="." method="_on_MenuButton_pressed"]
