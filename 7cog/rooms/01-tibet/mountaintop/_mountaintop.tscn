@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=2]
+[gd_scene load_steps=62 format=2]
 
 [ext_resource path="res://addons/escoria-core/game/core-scripts/esc_room.gd" type="Script" id=1]
 [ext_resource path="res://7cog/rooms/01-tibet/mountaintop/images/RC8_sky.png" type="Texture" id=2]
@@ -57,6 +57,8 @@
 [ext_resource path="res://7cog/rooms/01-tibet/mountaintop/snow_frames/tibettrans__00007.png" type="Texture" id=55]
 [ext_resource path="res://7cog/rooms/01-tibet/mountaintop/snow_frames/tibettrans__00003.png" type="Texture" id=56]
 [ext_resource path="res://7cog/rooms/01-tibet/mountaintop/pixel grid.png" type="Texture" id=57]
+[ext_resource path="res://addons/escoria-core/game/core-scripts/esc_item.gd" type="Script" id=59]
+[ext_resource path="res://7cog/rooms/01-tibet/mountaintop/200x200 2.png" type="Texture" id=60]
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
@@ -115,7 +117,7 @@ modulate = Color( 1, 0.890196, 0.976471, 0.729412 )
 position = Vector2( -8, 759 )
 scale = Vector2( 3.625, 3.36 )
 frames = SubResource( 2 )
-frame = 40
+frame = 44
 playing = true
 centered = false
 
@@ -148,6 +150,35 @@ position = Vector2( -82, -122 )
 scale = Vector2( 2.54375, 3.12 )
 z_index = 3000
 frames = SubResource( 2 )
-frame = 39
+frame = 43
 playing = true
 centered = false
+
+[node name="ESCItem" type="Area2D" parent="."]
+pause_mode = 1
+position = Vector2( 284, 1332 )
+script = ExtResource( 59 )
+__meta__ = {
+"_edit_group_": true
+}
+global_id = "oSomeItem"
+esc_script = "res://7cog/rooms/01-tibet/mountaintop/esc/item.esc"
+tooltip_name = "It's the tooltip for that thingy"
+combine_when_selected_action_is_in = [  ]
+inventory_texture = ExtResource( 60 )
+dialog_color = Color( 1, 1, 1, 1 )
+animations = null
+
+[node name="Sprite" type="Sprite" parent="ESCItem"]
+position = Vector2( 2, 1 )
+scale = Vector2( 0.17, 0.17 )
+texture = ExtResource( 60 )
+centered = false
+offset = Vector2( -100, -200 )
+
+[node name="Item ESCLocation" type="Position2D" parent="ESCItem"]
+position = Vector2( 0, 15 )
+script = ExtResource( 3 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ESCItem"]
+polygon = PoolVector2Array( -14, 1, 19, 0, 18, -33, -14, -33 )
