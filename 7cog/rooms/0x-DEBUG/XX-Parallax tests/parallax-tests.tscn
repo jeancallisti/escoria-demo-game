@@ -2,8 +2,8 @@
 
 [ext_resource path="res://addons/escoria-core/game/core-scripts/esc_room.gd" type="Script" id=1]
 [ext_resource path="res://7cog/rooms/01-tibet/mountaintop/pixel grid.png" type="Texture" id=2]
-[ext_resource path="res://7cog/rooms/00-misc/XX-Parallax tests/200x200.png" type="Texture" id=3]
-[ext_resource path="res://7cog/rooms/00-misc/XX-Parallax tests/ExtendedParallaxBackground.gd" type="Script" id=4]
+[ext_resource path="res://7cog/rooms/0x-DEBUG/XX-Parallax tests/200x200.png" type="Texture" id=3]
+[ext_resource path="res://7cog/rooms/0x-DEBUG/XX-Parallax tests/ExtendedParallaxBackground.gd" type="Script" id=4]
 [ext_resource path="res://addons/escoria-core/game/core-scripts/esc_location.gd" type="Script" id=6]
 [ext_resource path="res://addons/escoria-core/game/core-scripts/esc_terrain.gd" type="Script" id=7]
 [ext_resource path="res://game/characters/mark/mark.tscn" type="PackedScene" id=8]
