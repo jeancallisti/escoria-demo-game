@@ -1,6 +1,6 @@
 :look
     say player "Tralala" 
-
+    camera_set_zoom 0.5 1 
 
 :pickup
     inventory_add r5_empty_sheet

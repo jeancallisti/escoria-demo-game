@@ -52,7 +52,6 @@ size_flags_vertical = 6
 scroll_vertical_enabled = false
 
 [node name="container" type="HBoxContainer" parent="FloatingInventory/panel/MarginContainer/ScrollContainer"]
-margin_right = 476.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3

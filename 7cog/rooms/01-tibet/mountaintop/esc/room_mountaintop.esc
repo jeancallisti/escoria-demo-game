@@ -1,13 +1,25 @@
 # HÉ BATARD REGARDE LE MOT CLE "NO_UI" dans intro.esc c'est peut-être ce qu'on cherche!
 :ready
 
+# Simulate 320x200
+# PROBLEM: This causes the room to briefly "flash" at zoom level 1.
+ camera_set_zoom_block 0.5 1
+
 camera_set_target_block 0 player 
 
 
 say player "Start"
+
+# HÉ BATARD POUR LES BLOCKING CUTSCENES C'EST CA?
+# Disable input so all steps run without interruption 
+accept_input NONE
+
 # Reminder : camera_set_pos positions outside of Escoria will be ignored
 #camera_set_pos 0 320 200 
 say player "Wait 2"
+
+# Re-enable user input
+accept_input ALL
 
 wait 2
 #say player "Move down"
